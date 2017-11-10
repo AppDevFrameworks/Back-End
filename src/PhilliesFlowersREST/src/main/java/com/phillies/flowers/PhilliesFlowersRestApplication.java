@@ -4,10 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PhilliesFlowersApplication {
+public class PhilliesFlowersRestApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PhilliesFlowersApplication.class, args);
+		SpringApplication.run(PhilliesFlowersRestApplication.class, args);
 	}
-	
 }
