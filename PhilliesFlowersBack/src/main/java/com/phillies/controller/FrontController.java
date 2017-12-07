@@ -1,7 +1,7 @@
 package com.phillies.controller;
 
+import org.springframework.web.bind.annotation.PostMapping;
 //import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,8 +12,9 @@ public class FrontController {
 
 	//@Autowired OrderRepo orderRep;
 	
-    @RequestMapping("/getOrder")
-    public String greeting(@RequestParam(value="name", defaultValue="World") String name) {
-        return "hello";
+    @PostMapping("/getOrder")
+    public String greeting(@RequestParam String item, @RequestParam String amount) {
+    	System.out.println("A total of " + amount + " " + item + "(s) ordered!");
+        return "Order Failed";
     }
 }
