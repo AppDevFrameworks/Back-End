@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Supplier - Login</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+	<link rel="stylesheet" type="text/css" media="all" href="../static/main.css" th:href="@{/main.css}" />
+</head>
+<body>
+	<div class="centerDiv">
+		<form class="container" action="/login" method="POST">
+		    <label><b>Username</b></label>
+		    <input type="text" placeholder="Enter Username" name="name" />
+		
+		    <label><b>Password</b></label>
+		    <input type="password" placeholder="Enter Password" name="pass" />
+		
+		    <button type="submit">Login</button>
+		    <!--<input type="checkbox" checked="checked" name="check" /> Remember me-->
+	  </form>
+	</div>
+</body>
+</html>
