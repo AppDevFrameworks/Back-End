@@ -1,0 +1,13 @@
+body {
+  background-color: #404042;
+  height: 100vh;
+  margin: 0;
+}
+
+.centerDiv {
+	vertical-align: top;
+	width: 80%;
+	height: 100%;
+	margin: 0 auto;
+	background-color: white;
+}
