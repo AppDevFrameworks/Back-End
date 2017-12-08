@@ -2,9 +2,10 @@ package com.phillies.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,20 +24,21 @@ public class LoginController {
 	private OrderService orderService;
 
 	@GetMapping("/login")
-	public String login(Model model) {
-		if (!model.containsAttribute("user"))
+	public String login(HttpSession session) {
+		if (session.getAttribute("user")==null)
 			return "login";
-		return "redirect:/index";
+		return "redirect:/dash";
 	}
 
 	@PostMapping("/login")
-	public String processLogin(Model model, @RequestParam String name, @RequestParam String pass) {
+	public String processLogin(@RequestParam String name, @RequestParam String pass, HttpSession session) {
+		System.out.println("login");
 		Account account = (Account) getAccount(name, pass);
 		if (account==null)
 			return "login";
 		else {
-			model.addAttribute("user", account);
-			return "redirect/dash";
+			session.setAttribute("user", account);
+			return "redirect:/dash";
 		}
 	}
 

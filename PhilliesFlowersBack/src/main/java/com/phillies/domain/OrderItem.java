@@ -28,4 +28,12 @@ public class OrderItem {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+	
+	public float getCost() {
+		return this.item.getPrice() * this.quantity;
+	}
+	
+	public String getItemName() {
+		return item.getName();
+	}
 }

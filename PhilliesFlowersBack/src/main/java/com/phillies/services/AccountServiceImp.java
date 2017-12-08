@@ -18,6 +18,7 @@ public class AccountServiceImp implements AccountService {
 	@Override
 	public Account login(String name, String pass) {
 		Account temp = accountRepo.findByNameIgnoreCase(name);
+		System.out.println(name + " " + pass);
 		if(passEncoder.matches(pass, temp.getPassword())) {
 			return temp;
 		}

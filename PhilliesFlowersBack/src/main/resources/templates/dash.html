@@ -8,6 +8,46 @@
 <body>
 	<div class="centerDiv">
 		This is the dash. Only registered users can see this.
+		
+		<h1 th:text="${user.name}">Name</h1>
+		
+		<table>
+			<tr>
+				<th>Item</th>
+				<th>Quantity</th>
+				<th>Cost</th>
+			</tr>
+			<tr th:each="order : ${orders}">
+				<tr>
+					<td>
+						<ul th:each="item : ${order.orders}">
+							<li th:text="${item.itemName}">item</li>
+						</ul>
+					</td>
+					<td>
+						<p th:each="item : ${order.orders}">
+							<span th:text="${item.quantity}">quantity</span>
+						</p>
+					</td>
+					<td>
+						<p th:each="item : ${order.orders}">
+							€ <span th:text="${item.cost}">cost</span>
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Order:
+					</td>
+					<td>
+						€ <span th:text="${order.cost}">totalCost</span>
+					</td>
+					<td>
+						€ <span th:text="${order.owed}">totalOwed</span>
+					</td>
+				</tr>
+			</tr>
+		</table>
 	</div>
 </body>
 </html>
