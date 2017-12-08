@@ -32,7 +32,6 @@ public class LoginController {
 
 	@PostMapping("/login")
 	public String processLogin(@RequestParam String name, @RequestParam String pass, HttpSession session) {
-		System.out.println("login");
 		Account account = (Account) getAccount(name, pass);
 		if (account==null)
 			return "login";

@@ -8,4 +8,5 @@ import com.phillies.domain.Order;
 
 public interface OrderRepo extends MongoRepository<Order, String> {
 	public List<Order> findAllByOrderAcc(String orderAcc);
+	public Order findAllById(int id);
 }

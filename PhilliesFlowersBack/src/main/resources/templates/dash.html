@@ -3,7 +3,9 @@
 <head>
     <title>Supplier - Dashboard</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
-	<link rel="stylesheet" type="text/css" media="all" href="../static/main.css" th:href="@{/main.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/main.css}" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" th:src="@{/main.js}" />
 </head>
 <body>
 	<div class="centerDiv">
@@ -36,14 +38,29 @@
 					</td>
 				</tr>
 				<tr>
-					<td>
-						Order:
+					<td colspan="2">
+						Order Total:
 					</td>
 					<td>
 						€ <span th:text="${order.cost}">totalCost</span>
 					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						Amount Owed:
+					</td>
 					<td>
 						€ <span th:text="${order.owed}">totalOwed</span>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3">
+						<form class="payForm" name="payment">
+							Pay Amount: €<input type="number" min="0.01" th:max="${order.owed}" step="0.01" value="0" name="payment"/>
+							<input type="submit" value="Submit" name="submit" />
+							<input type="hidden" name="order" th:value="${order.id}" />
+							<input type="hidden" name="token" value="token" />
+						</form>
 					</td>
 				</tr>
 			</tr>

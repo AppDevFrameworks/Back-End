@@ -11,8 +11,8 @@ import com.phillies.domain.Flower;
 import com.phillies.domain.Order;
 import com.phillies.domain.OrderItem;
 import com.phillies.repository.FlowerRepo;
-import com.phillies.repository.OrderRepo;
 import com.phillies.services.AccountService;
+import com.phillies.services.OrderService;
 
 @Component
 public class DataLoader implements ApplicationRunner {
@@ -22,12 +22,12 @@ public class DataLoader implements ApplicationRunner {
 	@Autowired
 	FlowerRepo flowerRepo;
 	@Autowired
-	OrderRepo orderRepo;
+	OrderService orderService;
 	String[] flowerName = { "Rose", "Tulip", "Daisy", "Carnation", "Lily", "Orchid", "Hypericum", "Sunflower" };
 	float[] flowerPrice = { (float) 0.80, (float) 0.50, (float) 0.45, (float) 0.70, (float) 0.90, (float) 0.50,
 			(float) 0.75, (float) 0.30 };
 	Flower[] flowers = new Flower[flowerName.length];
-	
+
 
 	@Override
 	public void run(ApplicationArguments arg0) throws Exception {
@@ -37,9 +37,17 @@ public class DataLoader implements ApplicationRunner {
 			flowers[i] = new Flower(1+i, flowerName[i], flowerPrice[i]);
 			flowerRepo.save(flowers[i]);
 		}
-	ArrayList<OrderItem> temp = new ArrayList<>();
-	temp.add(new OrderItem(flowers[3], 1000));
-	temp.add(new OrderItem(flowers[5], 3000));
-	orderRepo.save(new Order(1, temp, "Phillies"));
+		ArrayList<OrderItem> temp = new ArrayList<>();
+		temp.add(new OrderItem(flowers[3], 1000));
+		temp.add(new OrderItem(flowers[5], 3000));
+		orderService.save(1, temp, "Phillies");
+		temp.clear();
+		temp.add(new OrderItem(flowers[5], 3000));
+		temp.add(new OrderItem(flowers[6], 3000));
+		orderService.save(2, temp, "Phillies");
+		
+		Order one = orderService.getOrderbyId(1);
+		one.setPaid(400);
+		orderService.save(one);
 	}
 }

@@ -11,7 +11,7 @@ public class Order {
 	private int id;
 	private String orderAcc;
 	private List<OrderItem> order;
-	private double owed = 55.46;
+	private double paid;
 
 	public Order() {
 	}
@@ -34,8 +34,16 @@ public class Order {
 		return order;
 	}
 
-	public void setOrderType(List<OrderItem> order) {
+	public void setOrders(List<OrderItem> order) {
 		this.order = order;
+	}
+
+	public double getPaid() {
+		return paid;
+	}
+
+	public void setPaid(double paid) {
+		this.paid = paid;
 	}
 
 	public String getOrderAcc() {
@@ -44,6 +52,14 @@ public class Order {
 
 	public void setOrderAcc(String orderAcc) {
 		this.orderAcc = orderAcc;
+	}
+	
+	public String lodgePayment(double paid) {
+		if(paid <= getOwed()) {
+			this.paid += paid;
+			return "Successful Payment";
+		}
+		return "Payment Failed";
 	}
 
 	public float getCost() {
@@ -55,10 +71,6 @@ public class Order {
 	}
 
 	public double getOwed() {
-		return owed;
-	}
-
-	public void setOwed(double owed) {
-		this.owed = owed;
+		return getCost() - this.paid;
 	}
 }
