@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class DashController {
 
-	@GetMapping("/login")
+	@GetMapping("/dash")
 	public String getDash() {
 		return "dash";
 	}

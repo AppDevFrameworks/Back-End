@@ -41,7 +41,11 @@ public class LoginController {
 	}
 
 	public Account getAccount(String name, String pass) {
-		return accountService.login(name, pass);
+		Account temp = accountService.login(name, pass);
+		if(temp!=null) {
+			
+		}
+		return temp;
 	}
 	
 	public List<Order> getOrders(String name) {
