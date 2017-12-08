@@ -1,6 +1,7 @@
 package com.phillies.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.phillies.domain.Account;
@@ -11,9 +12,19 @@ public class AccountServiceImp implements AccountService {
 
 	@Autowired
 	private AccountRepo accountRepo;
-	
+	@Autowired
+	private BCryptPasswordEncoder passEncoder;
+
 	@Override
 	public Account login(String name, String pass) {
-		return accountRepo.findByNameIgnoreCaseAndPassword(name, pass);
+		Account temp = accountRepo.findByNameIgnoreCase(name);
+		if(passEncoder.matches(pass, temp.getPassword()))
+			return temp;
+		return null;
+	}
+
+	@Override
+	public void saveUser(int id, String name, String pass, String type) {
+		accountRepo.save(new Account(id, name, passEncoder.encode(pass)));
 	}
 }

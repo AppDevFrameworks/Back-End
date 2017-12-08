@@ -7,19 +7,18 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import com.phillies.domain.Account;
 import com.phillies.domain.Flower;
 import com.phillies.domain.Order;
 import com.phillies.domain.OrderItem;
-import com.phillies.repository.AccountRepo;
 import com.phillies.repository.FlowerRepo;
 import com.phillies.repository.OrderRepo;
+import com.phillies.services.AccountService;
 
 @Component
 public class DataLoader implements ApplicationRunner {
 
 	@Autowired
-	AccountRepo accountRepo;
+	AccountService accountService;
 	@Autowired
 	FlowerRepo flowerRepo;
 	@Autowired
@@ -32,8 +31,8 @@ public class DataLoader implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments arg0) throws Exception {
-		accountRepo.save(new Account(1, "Phillies", "flowers"));
-		accountRepo.save(new Account(2, "Rob", "pass"));
+		accountService.saveUser(1, "Phillies", "flowers", "user");
+		accountService.saveUser(2, "Rob", "pass", "user");
 		for (int i=0; i<flowerName.length; i++) {
 			flowers[i] = new Flower(1+i, flowerName[i], flowerPrice[i]);
 			flowerRepo.save(flowers[i]);
