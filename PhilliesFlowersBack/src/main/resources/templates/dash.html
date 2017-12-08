@@ -9,18 +9,20 @@
 </head>
 <body>
 	<div class="centerDiv">
-		This is the dash. Only registered users can see this.
-		
+		This is the dash. Only registered users can see this.  <a href="logout">Logout</a>
 		<h1 th:text="${user.name}">Name</h1>
-		
 		<table>
 			<tr>
+				<th>Order</th>
 				<th>Item</th>
 				<th>Quantity</th>
 				<th>Cost</th>
 			</tr>
 			<tr th:each="order : ${orders}">
 				<tr>
+					<td rowspan="${orders.size}">
+						Order <span th:text="${order.id}">id</span>
+					</td>
 					<td>
 						<ul th:each="item : ${order.orders}">
 							<li th:text="${item.itemName}">item</li>
@@ -41,20 +43,20 @@
 					<td colspan="2">
 						Order Total:
 					</td>
-					<td>
+					<td colspan="2">
 						€ <span th:text="${order.cost}">totalCost</span>
 					</td>
 				</tr>
-				<tr>
+				<tr th:if="${order.owed} > 0">
 					<td colspan="2">
 						Amount Owed:
 					</td>
-					<td>
+					<td colspan="2">
 						€ <span th:text="${order.owed}">totalOwed</span>
 					</td>
 				</tr>
-				<tr>
-					<td colspan="3">
+				<tr th:if="${order.owed} > 0">
+					<td colspan="4">
 						<form class="payForm" name="payment">
 							Pay Amount: €<input type="number" min="0.01" th:max="${order.owed}" step="0.01" value="0" name="payment"/>
 							<input type="submit" value="Submit" name="submit" />
