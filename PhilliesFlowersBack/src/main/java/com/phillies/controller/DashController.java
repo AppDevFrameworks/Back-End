@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.phillies.config.SecurityConfig;
 import com.phillies.domain.Account;
 import com.phillies.domain.Order;
 import com.phillies.services.OrderService;
@@ -28,11 +29,8 @@ public class DashController {
 		List<Order> orders = orderService.getUserOrders(acc.getName());
 		model.addAttribute("user", acc);
 		model.addAttribute("orders", orders);
+		session.setAttribute("token", SecurityConfig.getToken());
+		model.addAttribute("token", session.getAttribute("token"));
 		return "dash";
-	}
-	
-	@PostMapping("/dash")
-	public String payOrder() {
-		return "";
 	}
 }

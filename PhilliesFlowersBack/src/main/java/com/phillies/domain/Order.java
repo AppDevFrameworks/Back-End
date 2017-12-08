@@ -54,12 +54,12 @@ public class Order {
 		this.orderAcc = orderAcc;
 	}
 	
-	public String lodgePayment(double paid) {
+	public int lodgePayment(double paid) {
 		if(paid <= getOwed()) {
 			this.paid += paid;
-			return "Successful Payment";
+			return 1;
 		}
-		return "Payment Failed";
+		return 2;
 	}
 
 	public float getCost() {

@@ -59,7 +59,7 @@
 							Pay Amount: €<input type="number" min="0.01" th:max="${order.owed}" step="0.01" value="0" name="payment"/>
 							<input type="submit" value="Submit" name="submit" />
 							<input type="hidden" name="order" th:value="${order.id}" />
-							<input type="hidden" name="token" value="token" />
+							<input class ="token" type="hidden" name="token" th:value="${token}" />
 						</form>
 					</td>
 				</tr>

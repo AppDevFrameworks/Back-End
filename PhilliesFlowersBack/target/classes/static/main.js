@@ -15,13 +15,18 @@ function submitPayment(payment, order, token) {
 			order: order,
 			token: token
 		},
-		dataType : 'text',
+		dataType : 'json',
 		error: function() {
-			alert("Error Occured");
+			window.location.replace("/error");
 		},
 		success : function(data) {
-			alert(data);
-			window.location.replace("/dash");
+			if(data.code==1)
+				window.location.replace("/dash");
+			else if(data.code==2)
+				alert("Payment could not be completed");
+			else if(data.code==3)
+				window.location.replace("/login");
+			$(".token").html($(".token").attr("title"));
 		}
 	});
 }
