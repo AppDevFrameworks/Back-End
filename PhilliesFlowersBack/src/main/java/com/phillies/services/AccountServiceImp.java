@@ -9,12 +9,8 @@ import com.phillies.repository.AccountRepo;
 @Service
 public class AccountServiceImp implements AccountService {
 
-	private AccountRepo accountRepo;
-	
 	@Autowired
-	public AccountServiceImp(AccountRepo accountRepo) {
-		this.accountRepo = accountRepo;
-	}
+	private AccountRepo accountRepo;
 	
 	@Override
 	public Account login(String name, String pass) {

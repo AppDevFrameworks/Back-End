@@ -3,21 +3,20 @@ package com.phillies.domain;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "account")
-public class Account {
+@Document(collection = "flowers")
+public class Flower {
 	@Id
 	private int id;
 	private String name;
-	private String password;
-	
-	public Account() {
-		
+	private float price;
+
+	public Flower() {
 	}
-	
-	public Account(int id, String name, String password) {
+
+	public Flower(int id, String name, float price) {
 		this.id = id;
 		this.name = name;
-		this.password = password;
+		this.price = price;
 	}
 
 	public int getId() {
@@ -35,12 +34,12 @@ public class Account {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public String getPassword() {
-		return password;
+	
+	public float getPrice() {
+		return price;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPrice(float price) {
+		this.price = price;
 	}
 }
