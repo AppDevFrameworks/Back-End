@@ -1,12 +1,9 @@
 package com.phillies.controller;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +26,7 @@ public class FrontController {
 	@Autowired
 	FlowerService flowerService;
 
-	@GetMapping("/getOrder")
+	@PostMapping("/getOrder")
 	public String greeting(@RequestParam(required = true) String name, @RequestParam(required = true) String pass,
 			@RequestParam("item") String[] item) {
 		String response = "{";
@@ -45,14 +42,6 @@ public class FrontController {
 		return response;
 	}
 
-	@PostMapping("/getOrder")
-	public String newOrder(@RequestParam Map<String, String> allRequestParams, ModelMap model) {
-		for (Map.Entry<String, String> param : allRequestParams.entrySet()) {
-			System.out.println(param.getValue());
-		}
-		return "Order Failed";
-	}
-
 	public ArrayList<OrderItem> addOrder(String[] params) {
 		ArrayList<OrderItem> order = new ArrayList<>();
 		for (int i = 0; i < params.length; i++) {
@@ -61,11 +50,21 @@ public class FrontController {
 				Flower flower = flowerService.getFlowers(values[0]);
 				int quantity = NumberUtils.createInteger(values[1]);
 				if (flower != null) {
+					if(!checkOrder(order, flower.getName(), quantity))
 					order.add(new OrderItem(flower, quantity));
 				}
 			}
 		}
 		return order;
+	}
+	
+	public boolean checkOrder(ArrayList<OrderItem> order, String flower, int quantity) {
+		for(OrderItem o: order)
+			if(o.getItemName().equalsIgnoreCase(flower)) {
+				o.increment(quantity);
+				return true;
+			}
+		return false;	
 	}
 
 	public String getCode(ArrayList<OrderItem> order) {

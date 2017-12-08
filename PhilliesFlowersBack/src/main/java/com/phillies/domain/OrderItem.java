@@ -36,4 +36,8 @@ public class OrderItem {
 	public String getItemName() {
 		return item.getName();
 	}
+
+	public void increment(int quantity) {
+		this.quantity += quantity;
+	}
 }

@@ -73,4 +73,17 @@ public class Order {
 	public double getOwed() {
 		return getCost() - this.paid;
 	}
+	
+	public boolean contains(String flower) {
+		for(OrderItem o: order)
+			if(o.getItemName().equalsIgnoreCase(flower))
+				return true;
+		return false;		
+	}
+	
+	public void increment(String flower, int quantity) {
+		for(OrderItem o: order)
+			if(o.getItemName().equalsIgnoreCase(flower))
+				o.increment(quantity);
+	}
 }
