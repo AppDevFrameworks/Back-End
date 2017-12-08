@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,10 +32,12 @@ public class LoginController {
 	}
 
 	@PostMapping("/login")
-	public String processLogin(@RequestParam String name, @RequestParam String pass, HttpSession session) {
+	public String processLogin(Model model, @RequestParam String name, @RequestParam String pass, HttpSession session) {
 		Account account = (Account) getAccount(name, pass);
-		if (account==null)
+		if (account==null) {
+			model.addAttribute("error", "Error");
 			return "login";
+		}
 		else {
 			session.setAttribute("user", account);
 			return "redirect:/dash";
