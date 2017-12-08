@@ -36,7 +36,7 @@ public class LoginController {
 			return "login";
 		else {
 			model.addAttribute("user", account);
-			return "index";
+			return "redirect/dash";
 		}
 	}
 
