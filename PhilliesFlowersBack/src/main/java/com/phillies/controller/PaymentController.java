@@ -27,7 +27,7 @@ public class PaymentController {
 			double dPay = NumberUtils.createDouble(payment);
 			Order temp = orderService.getOrderbyId(orderId);
 			int lodge = temp.lodgePayment(dPay);
-			response += addResponse("code", lodge+"");
+			response += addResponse("code", lodge + "");
 			if (lodge == 1)
 				orderService.save(temp);
 		} else

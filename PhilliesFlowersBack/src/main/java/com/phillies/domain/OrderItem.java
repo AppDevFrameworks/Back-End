@@ -29,7 +29,7 @@ public class OrderItem {
 		this.quantity = quantity;
 	}
 	
-	public float getCost() {
+	public double getCost() {
 		return this.item.getPrice() * this.quantity;
 	}
 	

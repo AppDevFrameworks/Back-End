@@ -8,6 +8,7 @@ import com.phillies.domain.OrderItem;
 
 public interface OrderService {
 	public List<Order> getUserOrders(String name);
+	public int getNextOrder();
 	public Order getOrderbyId(int i);
 	public void save(int id, ArrayList<OrderItem> items, String name);
 	public void save(Order order);

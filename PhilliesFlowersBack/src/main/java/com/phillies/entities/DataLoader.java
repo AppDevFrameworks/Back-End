@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 import com.phillies.domain.Flower;
 import com.phillies.domain.Order;
 import com.phillies.domain.OrderItem;
-import com.phillies.repository.FlowerRepo;
 import com.phillies.services.AccountService;
+import com.phillies.services.FlowerService;
 import com.phillies.services.OrderService;
 
 @Component
@@ -20,12 +20,11 @@ public class DataLoader implements ApplicationRunner {
 	@Autowired
 	AccountService accountService;
 	@Autowired
-	FlowerRepo flowerRepo;
+	FlowerService flowerService;
 	@Autowired
 	OrderService orderService;
 	String[] flowerName = { "Rose", "Tulip", "Daisy", "Carnation", "Lily", "Orchid", "Hypericum", "Sunflower" };
-	float[] flowerPrice = { (float) 0.80, (float) 0.50, (float) 0.45, (float) 0.70, (float) 0.90, (float) 0.50,
-			(float) 0.75, (float) 0.30 };
+	double[] flowerPrice = { 0.80, 0.50, 0.45, 0.70, 0.90, 0.50, 0.75, 0.30 };
 	Flower[] flowers = new Flower[flowerName.length];
 
 
@@ -35,7 +34,7 @@ public class DataLoader implements ApplicationRunner {
 		accountService.saveUser(2, "Rob", "pass", "user");
 		for (int i=0; i<flowerName.length; i++) {
 			flowers[i] = new Flower(1+i, flowerName[i], flowerPrice[i]);
-			flowerRepo.save(flowers[i]);
+			flowerService.saveFlower(1+i, flowerName[i], flowerPrice[i]);
 		}
 		ArrayList<OrderItem> temp = new ArrayList<>();
 		temp.add(new OrderItem(flowers[3], 1000));

@@ -59,7 +59,7 @@
 						<td colspan="4">
 							<form class="payForm" name="payment">
 								Pay Amount: €<input type="number" min="0.01" th:max="${order.owed}" step="0.01" value="0" name="payment"/>
-								<input type="submit" value="Submit" name="submit" />
+								<input type="submit" value="Pay" name="submit" />
 								<input type="hidden" name="order" th:value="${order.id}" />
 								<input class ="token" type="hidden" name="token" th:value="${token}" />
 							</form>

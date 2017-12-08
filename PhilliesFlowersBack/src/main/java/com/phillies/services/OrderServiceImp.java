@@ -20,6 +20,11 @@ public class OrderServiceImp implements OrderService {
 	public List<Order> getUserOrders(String name) {
 		return orderRepo.findAllByOrderAcc(name);
 	}
+	
+	@Override
+	public int getNextOrder() {
+		return orderRepo.findTopByOrderByIdDesc().getId() + 1;
+	}
 
 	@Override
 	public Order getOrderbyId(int id) {

@@ -5,5 +5,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import com.phillies.domain.Flower;
 
 public interface FlowerRepo extends MongoRepository<Flower, String> {
-	public Flower findByName(String name);
+	public Flower findByNameIgnoreCase(String name);
 }
