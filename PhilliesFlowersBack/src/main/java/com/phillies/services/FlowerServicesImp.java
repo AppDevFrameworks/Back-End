@@ -1,5 +1,7 @@
 package com.phillies.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,11 @@ public class FlowerServicesImp implements FlowerService {
 	
 	public Flower getFlowers(String name) {
 		return flowerRepo.findByNameIgnoreCase(name);
+	}
+
+	@Override
+	public List<Flower> getAllFlowers() {
+		return flowerRepo.findAll();
 	}
 
 	@Override

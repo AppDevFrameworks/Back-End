@@ -1,4 +1,4 @@
-package com.phillies.controller;
+package com.phillies.restcontroller;
 
 import java.util.ArrayList;
 
@@ -12,12 +12,13 @@ import com.phillies.domain.Account;
 import com.phillies.domain.Flower;
 import com.phillies.domain.Order;
 import com.phillies.domain.OrderItem;
+import com.phillies.domain.OrderResponse;
 import com.phillies.services.AccountService;
 import com.phillies.services.FlowerService;
 import com.phillies.services.OrderService;
 
 @RestController
-public class FrontController {
+public class OrderController {
 
 	@Autowired
 	AccountService accountService;
@@ -27,19 +28,18 @@ public class FrontController {
 	FlowerService flowerService;
 
 	@PostMapping("/getOrder")
-	public String greeting(@RequestParam(required = true) String name, @RequestParam(required = true) String pass,
-			@RequestParam("item") String[] item) {
-		String response = "{";
+	public OrderResponse newOrder(@RequestParam(required = true) String name,
+			@RequestParam(required = true) String pass, @RequestParam("item") String[] item) {
+		int code = 0;
 		Account acc = accountService.login(name, pass);
 		if (acc != null) {
 			ArrayList<OrderItem> order = addOrder(item);
 			if (!order.isEmpty())
 				orderService.save(new Order(orderService.getNextOrder(), order, acc.getName()));
-			response += getCode(order);
-		} else
-			response += addResponse("code", "3");
-		response += "}";
-		return response;
+			code = getCode(order);
+		} else if (acc == null)
+			code = 3;
+		return new OrderResponse(code);
 	}
 
 	public ArrayList<OrderItem> addOrder(String[] params) {
@@ -50,30 +50,39 @@ public class FrontController {
 				Flower flower = flowerService.getFlowers(values[0]);
 				int quantity = NumberUtils.createInteger(values[1]);
 				if (flower != null) {
-					if(!checkOrder(order, flower.getName(), quantity))
-					order.add(new OrderItem(flower, quantity));
+					if (!checkOrder(order, flower.getName(), quantity))
+						order.add(new OrderItem(flower, quantity));
 				}
 			}
 		}
 		return order;
 	}
-	
+
 	public boolean checkOrder(ArrayList<OrderItem> order, String flower, int quantity) {
-		for(OrderItem o: order)
-			if(o.getItemName().equalsIgnoreCase(flower)) {
+		for (OrderItem o : order)
+			if (o.getItemName().equalsIgnoreCase(flower)) {
 				o.increment(quantity);
 				return true;
 			}
-		return false;	
+		return false;
 	}
 
-	public String getCode(ArrayList<OrderItem> order) {
+	public int getCode(ArrayList<OrderItem> order) {
 		if (order.isEmpty())
-			return addResponse("code", "2");
-		return addResponse("code", "1");
+			return 2;
+		return 1;
 	}
 
-	public String addResponse(String param, String value) {
-		return "\"" + param + "\" : \"" + value + "\"";
-	}
+	/*
+	 * Codes 
+	 * 0 = Unknown 
+	 * 1 = Success 
+	 * 2 = Empty Order 
+	 * 3 = Login Issue
+	 * 
+	 * API = getOrder?name=NAME&pass=PASS&item=ITEM-AMOUNT
+	 * 
+	 * NAME = Username PASS = Passowrd ITEM-AMOUNT e.g Lily-300 ITEM is not case
+	 * sensitive. Can support multiple item. e.g item=lily-300&item=rose-100
+	 */
 }
