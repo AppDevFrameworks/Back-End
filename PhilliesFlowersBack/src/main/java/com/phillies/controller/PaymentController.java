@@ -22,7 +22,6 @@ public class PaymentController {
 	public String payOrder(@RequestParam String order, @RequestParam String payment, @RequestParam String token,
 			HttpSession session) {
 		String response = "{";
-		System.out.println(token + " - " + session.getAttribute("token"));
 		if (session.getAttribute("user") != null && token.equals(session.getAttribute("token"))) {
 			int orderId = NumberUtils.createInteger(order);
 			double dPay = NumberUtils.createDouble(payment);
