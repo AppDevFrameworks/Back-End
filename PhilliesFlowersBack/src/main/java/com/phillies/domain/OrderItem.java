@@ -28,4 +28,16 @@ public class OrderItem {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+	
+	public double getCost() {
+		return this.item.getPrice() * this.quantity;
+	}
+	
+	public String getItemName() {
+		return item.getName();
+	}
+
+	public void increment(int quantity) {
+		this.quantity += quantity;
+	}
 }

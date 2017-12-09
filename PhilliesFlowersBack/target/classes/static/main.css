@@ -62,7 +62,7 @@ img.avatar {
 }
 
 /* Add padding to containers */
-.container {
+.login {
     padding: 16px;
 }
 
@@ -81,4 +81,8 @@ span.psw {
     .cancelbtn {
         width: 100%;
     }
+}
+
+table, th, td {
+    border: 1px solid black;
 }

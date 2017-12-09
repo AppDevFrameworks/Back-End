@@ -11,6 +11,7 @@ public class Order {
 	private int id;
 	private String orderAcc;
 	private List<OrderItem> order;
+	private double paid;
 
 	public Order() {
 	}
@@ -33,8 +34,16 @@ public class Order {
 		return order;
 	}
 
-	public void setOrderType(List<OrderItem> order) {
+	public void setOrders(List<OrderItem> order) {
 		this.order = order;
+	}
+
+	public double getPaid() {
+		return paid;
+	}
+
+	public void setPaid(double paid) {
+		this.paid = paid;
 	}
 
 	public String getOrderAcc() {
@@ -43,5 +52,38 @@ public class Order {
 
 	public void setOrderAcc(String orderAcc) {
 		this.orderAcc = orderAcc;
+	}
+	
+	public int lodgePayment(double paid) {
+		if(paid <= getOwed()) {
+			this.paid += paid;
+			return 1;
+		}
+		return 2;
+	}
+
+	public float getCost() {
+		float total = 0;
+		for (OrderItem i : order) {
+			total += i.getCost();
+		}
+		return total;
+	}
+
+	public double getOwed() {
+		return getCost() - this.paid;
+	}
+	
+	public boolean contains(String flower) {
+		for(OrderItem o: order)
+			if(o.getItemName().equalsIgnoreCase(flower))
+				return true;
+		return false;		
+	}
+	
+	public void increment(String flower, int quantity) {
+		for(OrderItem o: order)
+			if(o.getItemName().equalsIgnoreCase(flower))
+				o.increment(quantity);
 	}
 }
