@@ -32,16 +32,10 @@ public class LoginController {
 	}
 
 	@PostMapping("/login")
-<<<<<<< HEAD
 	public String processLogin(Model model, @RequestParam String name, @RequestParam String pass, HttpSession session) {
 		Account account = (Account) getAccount(name, pass);
 		if (account==null) {
 			model.addAttribute("error", "Error");
-=======
-	public String processLogin(Model model, @RequestParam String name, @RequestParam String pass) {
-		Account account = (Account) getAccount(name, pass);
-		if (account==null)
->>>>>>> parent of dd04835... Erm ..
 			return "login";
 		}
 		else {
