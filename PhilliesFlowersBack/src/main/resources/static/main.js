@@ -4,13 +4,6 @@ $(document).ready(function() {
 		submitPayment(values[0].value, values[1].value, values[2].value);
 		e.preventDefault();
 	});
-	
-	$("#locales").change(function () {
-        var selectedOption = $('#locales').val();
-        if (selectedOption != ''){
-            window.location.replace('?lang=' + selectedOption);
-        }
-    });
 });
 
 function submitPayment(payment, order, token) {
