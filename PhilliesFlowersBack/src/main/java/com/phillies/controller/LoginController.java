@@ -22,6 +22,9 @@ public class LoginController {
 	@Autowired
 	private OrderService orderService;
 
+	
+	Account account;
+	
 	@GetMapping("/login")
 	public String login(Model model) {
 		if (!model.containsAttribute("user"))
@@ -31,13 +34,19 @@ public class LoginController {
 
 	@PostMapping("/login")
 	public String processLogin(Model model, @RequestParam String name, @RequestParam String pass) {
-		Account account = (Account) getAccount(name, pass);
+		account = (Account) getAccount(name, pass);
 		if (account==null)
 			return "login";
 		else {
 			model.addAttribute("user", account);
 			return "index";
 		}
+	}
+	
+	@GetMapping("/loginDashboard")
+	public String loginDashboard(Model model, Account account) {
+		
+		return "redirect:/index";
 	}
 
 	public Account getAccount(String name, String pass) {
