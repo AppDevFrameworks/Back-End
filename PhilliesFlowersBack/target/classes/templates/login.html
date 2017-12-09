@@ -8,16 +8,16 @@
 	<body>
 		<div class="centerDiv">
 			<form class="login" action="/login" method="POST">
-			    <label><b>Username</b></label>
-			    <input type="text" placeholder="Enter Username" name="name" required="required" />
+			    <label th:text="#{log.username}"><b>user</b></label>
+			    <input type="text" th:placeholder="#{input.username}" name="name" required="required" />
 			
-			    <label><b>Password</b></label>
-			    <input type="password" placeholder="Enter Password" name="pass" required="required" />
+			    <label th:text="#{log.password}"><b>pass</b></label>
+			    <input type="password" th:placeholder="#{input.password}" name="pass" required="required" />
 			
-			    <button type="submit">Login</button>
+			    <button type="submit" th:text="#{login}">Login</button>
 			    <!--<input type="checkbox" checked="checked" name="check" /> Remember me-->
 			    <div th:if="${error} != null">
-			    	Error logging in. Please check your username and password and try again.
+			    	<span th:text="#{log.error}">error</span>
 			    </div>
 		  </form>
 		</div>
