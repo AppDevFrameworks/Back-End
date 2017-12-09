@@ -6,7 +6,7 @@
 		<link rel="stylesheet" type="text/css" media="all" href="../static/main.css" />
 	</head>
 	<body>
-		<h1> Error Occurred - try again later.</h1>
-		<a href="index">Homepage</a>
+		<h1 th:text="#{error.display}">error</h1>
+		<a href="/" th:text="#{home}">homepage</a>
 	</body>
 </html>
