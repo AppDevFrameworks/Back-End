@@ -12,7 +12,6 @@ public class Order {
 	private String orderAcc;
 	private List<OrderItem> order;
 	private double paid;
-
 	public Order() {
 	}
 
@@ -62,8 +61,8 @@ public class Order {
 		return 2;
 	}
 
-	public float getCost() {
-		float total = 0;
+	public double getCost() {
+		double total = 0;
 		for (OrderItem i : order) {
 			total += i.getCost();
 		}
